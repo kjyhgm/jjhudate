@@ -64,8 +64,6 @@
     .primary-btn.selected { background-color: #ce497e; color:white; }
     .secondary-btn { background-color: #dde7fd; color: black; margin: 4px; padding: 6px 12px; font-size: 0.8em; }
     .secondary-btn.selected { background-color: #4973ce; color:white; }
-    .tertiary-btn { background-color: #d1d1d1; color: black; margin: 3px; padding: 4px 10px; font-size: 0.7em; }
-    .tertiary-btn.selected { background-color: #727272; color:white; }
 
     .category-title { margin-top: 20px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
     .container { text-align: center; margin-bottom: 10px; }
@@ -89,7 +87,7 @@
   </style>
 </head>
 <body>
-  <h1>😶 오늘 뭐 하지?</h1>
+  <h1 style="cursor:pointer;" onclick="location.reload();">😶 오늘 뭐 하지?</h1>
     
   <!-- 1차 카테고리 -->
   <div class="category-title">🍀 어떤 느낌?</div>
@@ -109,6 +107,8 @@
     <button class="secondary-btn" onclick="selectSecondary('집콕', this)">집콕</button>
   </div>
 
+  <hr style="border: none; border-top: 2px dotted #ccc; width: 80%; margin: 15px 0;">
+  
   <!-- 추천 버튼 -->
   <div class="container">
     <button onclick="showResult()" style="background-color:black; color:white; padding:12px 36px; font-size: 1.1em; border-radius:18px;">CLICK!</button>
@@ -198,6 +198,12 @@
 
   <div id="footer-info">
     <p>돈이 있다면 할 게 많아진다.</p>
+    <p>
+      <a href="https://blog.naver.com/hgmkjy" target="_blank" style="text-decoration:none; color:#555; display:flex; align-items:center; gap:5px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Naver_Logotype.svg" alt="블로그" style="width:20px; height:20px;">
+        jjhu's Day blog
+      </a>
+    </p>
   </div>
 
 <div class="container">
