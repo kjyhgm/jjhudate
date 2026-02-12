@@ -199,53 +199,32 @@
   <div id="footer-info">
     <p>돈이 있다면 할 게 많아진다.</p>
     <p>
-      <a href="https://blog.naver.com/hgmkjy" target="_blank" style="text-decoration:none; color:#555; display:flex; align-items:center; gap:5px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Naver_Logotype.svg" alt="블로그" style="width:20px; height:20px;">
-        jjhu's Day blog
-      </a>
+      <a href="https://blog.naver.com/hgmkjy" target="_blank">"jjhu's Day"</a>
     </p>
   </div>
 
 <div class="container">
-  <button onclick="toggleMenuTable()" style="background-color:#555; color:white; padding:10px 30px; border-radius:15px;">모든 메뉴 보기</button>
+  <button onclick="toggleMenuTable()" style="background-color:#555; color:white; padding:10px 30px; border-radius:15px;">모든 활동 보기</button>
 </div>
 
 <div id="menu-table-container" style="display:none; margin-top:20px; max-height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px; border-radius:10px;">
-  <table id="menu-table" style="width:100%; border-collapse:collapse; font-size:0.9em;">
-    <thead>
-      <tr style="background-color:#f0f0f0;">
-        <th style="border:1px solid #ccc; padding:5px;">누구랑?</th>
-        <th style="border:1px solid #ccc; padding:5px;">어떤 느낌?</th>
-        <th style="border:1px solid #ccc; padding:5px;">장소</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- JS에서 채워짐 -->
-    </tbody>
-  </table>
+  <div id="menu-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; text-align:center; font-size:0.9em;">
+    <!-- JS에서 채워짐 -->
+  </div>
 </div>
-<script>
-  function toggleMenuTable() {
-    const container = document.getElementById('menu-table-container');
-    container.style.display = container.style.display === 'none' ? 'block' : 'none';
-    
-    if(container.style.display === 'block') {
-      populateMenuTable();
-    }
-  }
 
+<script>
   function populateMenuTable() {
-    const tbody = document.querySelector('#menu-table tbody');
-    tbody.innerHTML = ''; // 초기화
-    
+    const container = document.getElementById('menu-grid');
+    container.innerHTML = ''; // 초기화
+
     menuData.forEach(item => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td style="border:1px solid #ccc; padding:5px;">${item.name}</td>
-        <td style="border:1px solid #ccc; padding:5px;">${item.tags[0] || ''}</td>
-        <td style="border:1px solid #ccc; padding:5px;">${item.tags.slice(1).join(', ')}</td>
-      `;
-      tbody.appendChild(tr);
+      const div = document.createElement('div');
+      div.style.padding = '5px';
+      div.style.border = '1px solid #ccc';
+      div.style.borderRadius = '5px';
+      div.textContent = item.name;
+      container.appendChild(div);
     });
   }
 </script>
