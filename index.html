@@ -64,7 +64,7 @@
     .primary-btn.selected { background-color: #ce497e; color:white; }
     .secondary-btn { background-color: #f4ddfd; color: black; margin: 4px; padding: 6px 12px; font-size: 0.8em; }
     .secondary-btn.selected { background-color: #9d49ce; color:white; }
-    .tertiary-btn { background-color: #dde7fd; color: black; margin: 4px; padding: 6px 12px; font-size: 0.8em; }
+    .tertiary-btn { background-color: #dde7fd; color: black; margin: 3px; padding: 4px 10px; font-size: 0.7em; }
     .tertiary-btn.selected { background-color: #4973ce; color:white; }
 
     .category-title { margin-top: 20px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
@@ -92,27 +92,27 @@
   <h1>😶 오늘 뭐 하지?</h1>
     
   <!-- 1차 카테고리 -->
-  <div class="category-title">💜 누구랑?</div>
+  <div class="category-title">🍀 어떤 느낌?</div>
   <div id="primary" class="container">
-    <button class="primary-btn" onclick="selectPrimary('혼자', this)">혼자</button>
-    <button class="primary-btn" onclick="selectPrimary('데이트', this)">데이트</button>
-    <button class="primary-btn" onclick="selectPrimary('친구', this)">친구</button>
+    <button class="primary-btn" onclick="selectPrimary('힐링', this)">힐링</button>
+    <button class="primary-btn" onclick="selectPrimary('액티비티', this)">액티비티</button>
+    <button class="primary-btn" onclick="selectPrimary('문화/체험', this)">문화/체험</button>
+    <button class="primary-btn" onclick="selectPrimary('가볍게', this)">가볍게</button>
+    <button class="primary-btn" onclick="selectPrimary('특별한', this)">특별한</button>
   </div>
 
   <!-- 2차 카테고리 -->
-  <div class="category-title">🍀 어떤 느낌?</div>
+  <div class="category-title">🏠 장소</div>
   <div id="secondary" class="container">
-    <button class="secondary-btn" onclick="selectSecondary('힐링', this)">힐링</button>
-    <button class="secondary-btn" onclick="selectSecondary('액티비티', this)">액티비티</button>
-    <button class="secondary-btn" onclick="selectSecondary('문화/체험', this)">문화/체험</button>
+    <button class="secondary-btn" onclick="selectSecondary('실내', this)">실내</button>
+    <button class="secondary-btn" onclick="selectSecondary('야외', this)">야외</button>
+    <button class="secondary-btn" onclick="selectSecondary('집콕', this)">집콕</button>
   </div>
 
-  <!-- 3차 카테고리 -->
-  <div class="category-title">🏠 장소</div>
-  <div id="tertiary" class="container">
-    <button class="tertiary-btn" onclick="selectTertiary('실내', this)">실내</button>
-    <button class="tertiary-btn" onclick="selectTertiary('야외', this)">야외</button>
-    <button class="tertiary-btn" onclick="selectTertiary('집콕', this)">집콕</button>
+  <!-- 혼자 놀기 버튼 -->
+  <div class="category-title">😎 혼자 놀기</div>
+  <div class="container">
+    <button class="small-btn" onclick="selectSecondary('혼자', this)">혼자 놀기</button>
   </div>
   <hr style="border: none; border-top: 3px dotted #aaa; width: 200px; margin: 20px auto;">
   
@@ -122,12 +122,17 @@
   </div>
 
   <!-- 결과 출력 -->
-  <div class="menu" id="result">밥해먹기 귀찮다~</div>
+  <div class="menu" id="result">왜케 할 게 없지</div>
   
   <script>
     const menuData = [
       
-      { name: "우웩..회", tags: ["외식", "고기"] },
+      { name: "카페", tags: ["혼자", "데이트", "친구", "힐링", "실내"] },
+      { name: "동물카페", tags: ["혼자", "데이트", "힐링", "실내"] },
+      { name: "영화보기", tags: ["혼자", "데이트", "문화/체험", "실내"] },
+      { name: "노래방", tags:["혼자", "친구", "데이트", "실내", "힐링"]},
+      { name: "셀프사진관", tags:["혼자", "친구", "데이트", "실내", "그지예요"]},
+      { name: "피시방", tags:["혼자", "친구", "데이트", "실내", "그지예요"]},
     ];
 
     let primaryChoices = [];
