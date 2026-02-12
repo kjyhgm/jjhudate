@@ -62,10 +62,10 @@
 
     .primary-btn { background-color: #fdddea; color: black; margin: 4px; padding: 6px 12px; font-size: 0.8em; }
     .primary-btn.selected { background-color: #ce497e; color:white; }
-    .secondary-btn { background-color: #f4ddfd; color: black; margin: 4px; padding: 6px 12px; font-size: 0.8em; }
-    .secondary-btn.selected { background-color: #9d49ce; color:white; }
-    .tertiary-btn { background-color: #dde7fd; color: black; margin: 3px; padding: 4px 10px; font-size: 0.7em; }
-    .tertiary-btn.selected { background-color: #4973ce; color:white; }
+    .secondary-btn { background-color: #dde7fd; color: black; margin: 4px; padding: 6px 12px; font-size: 0.8em; }
+    .secondary-btn.selected { background-color: #4973ce; color:white; }
+    .tertiary-btn { background-color: #d1d1d1; color: black; margin: 3px; padding: 4px 10px; font-size: 0.7em; }
+    .tertiary-btn.selected { background-color: #727272; color:white; }
 
     .category-title { margin-top: 20px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
     .container { text-align: center; margin-bottom: 10px; }
@@ -126,12 +126,28 @@
   <script>
     const menuData = [
       
-      { name: "카페", tags: ["혼자", "데이트", "친구", "힐링", "실내"] },
-      { name: "동물카페", tags: ["혼자", "데이트", "힐링", "실내"] },
-      { name: "영화보기", tags: ["혼자", "데이트", "문화/체험", "실내"] },
-      { name: "노래방", tags:["혼자", "친구", "데이트", "실내", "힐링"]},
-      { name: "셀프사진관", tags:["혼자", "친구", "데이트", "실내", "그지예요"]},
-      { name: "피시방", tags:["혼자", "친구", "데이트", "실내", "그지예요"]},
+      { name: "카페", tags: ["데이트", "친구", "힐링", "실내"] },
+      { name: "동물카페", tags: ["데이트", "힐링", "실내"] },
+      { name: "영화보기", tags: ["데이트", "문화/체험", "실내"] },
+      { name: "노래방", tags:["친구", "데이트", "실내", "힐링"]},
+      { name: "셀프사진관", tags:["친구", "데이트", "실내", "그지예요"]},
+      { name: "피시방", tags:["친구", "데이트", "실내", "그지예요"]},
+
+      { name: "혼밥", tags:["혼자"]},
+      { name: "혼영", tags:["혼자"]},
+      { name: "대청소", tags:["혼자"]},
+      { name: "드라마 보기", tags:["혼자"]},
+      { name: "홈트", tags:["혼자"]},
+      { name: "혼술", tags:["혼자"]},
+      { name: "혼코노", tags:["혼자"]},
+      { name: "카공족이되", tags:["혼자"},
+      { name: "다이소 쇼핑", tags:["혼자"]},
+      { name: "혼밥", tags:["혼자", "집콕"]},
+      { name: "혼자 멀리?", tags:["혼자"]},
+      { name: "산책이나 해", tags:["혼자"},
+      { name: "잠이나 처 자", tags:["혼자"]},
+
+      
     ];
 
     let primaryChoices = [];
