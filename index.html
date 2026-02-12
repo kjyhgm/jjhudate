@@ -110,10 +110,11 @@
   </div>
 
   <!-- 혼자 놀기 버튼 -->
-  <div id="tertiary" class="container">
-    <button class="tertiary-btn" onclick="selectTertiary('혼자', this)">혼자 놀기</button>
+  <div class="container">
+    <button class="tertiary-btn" onclick="toggleSolo(this)">혼자 놀기</button>
   </div>
   <hr style="border: none; border-top: 3px dotted #aaa; width: 200px; margin: 20px auto;">
+
   
   <!-- 추천 버튼 -->
   <div class="container">
@@ -132,6 +133,8 @@
       { name: "노래방", tags:["친구", "데이트", "실내", "힐링"]},
       { name: "셀프사진관", tags:["친구", "데이트", "실내", "그지예요"]},
       { name: "피시방", tags:["친구", "데이트", "실내", "그지예요"]},
+      
+      { name: "스타필드", tags:["데이트", "실내", "그지예요", "가볍게"]},
 
       { name: "혼밥", tags:["혼자"]},
       { name: "혼영", tags:["혼자"]},
@@ -152,7 +155,7 @@
 
     let primaryChoices = [];
     let secondaryChoices = [];
-    let tertiaryChoices = [];
+    let soloSelected = false;           // 혼자 버튼
 
     function selectPrimary(choice, btn) {
       const index = primaryChoices.indexOf(choice);
@@ -176,16 +179,10 @@
       }
     }
 
-    function selectTertiary(choice, btn) {
-      const index = tertiaryChoices.indexOf(choice);
-      if (index === -1) {
-        tertiaryChoices.push(choice);
-        btn.classList.add('selected');
-      } else {
-        tertiaryChoices.splice(index, 1);
-        btn.classList.remove('selected');
-      }
-    }
+    function toggleSolo(btn) {
+      soloSelected = !soloSelected;
+      btn.classList.toggle('selected');
+    }                                       // 혼자 버튼
 
     function showResult() {
       const resultDiv = document.getElementById("result");
