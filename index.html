@@ -22,7 +22,9 @@
       min-height: 100vh;
     }
 
-    h1 { font-size: 2em; margin-bottom: 20px; }
+    h1 { font-size: 2em; }
+    .header { width: 100%; background-color: #705656; padding: 20px 0; text-align: center; margin-bottom: 30px; }
+    .header h1 { color: white; margin: 0; }
 
     /* 메뉴 결과 박스 */
     .menu {
@@ -92,7 +94,9 @@
   </style>
 </head>
 <body>
-  <h1 style="cursor:pointer;" onclick="location.reload();">🐹 오늘 뭐 하지?</h1>
+  <div class="header">
+    <h1>오늘 뭐하지?</h1>
+  </div>
     
   <!-- 1차 카테고리 -->
   <div class="category-title">🏠 상황</div>
