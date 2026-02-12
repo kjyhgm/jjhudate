@@ -214,6 +214,14 @@
 </div>
 
 <script>
+  function toggleMenuTable() {
+    const container = document.getElementById('menu-table-container');
+    container.style.display = container.style.display === 'none' ? 'block' : 'none';
+    if(container.style.display === 'block') {
+      populateMenuTable();
+    }
+  }
+
   function populateMenuTable() {
     const container = document.getElementById('menu-grid');
     container.innerHTML = ''; // 초기화
