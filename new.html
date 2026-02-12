@@ -90,15 +90,6 @@
     .result-title { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }       /* 결과 제목 */
     .menu-desc { font-size: 0.8em; color: #6a4f4a;}                /* 설명 글씨 */
 
-    /* 테마 변수 */
-ㅋㅋ ㅇㅇ 마음대로 수정 가능함 ㅋㅋ
-
-지금 구조는 **CSS 변수(–primary-bg, –secondary-bg…)**로 만들어놨잖아
-
-변수만 바꾸면 버튼 색상, 배경 등 원하는 테마 색 전부 바뀜
-
-예시 구조:
-
 /* 테마 변수 */
 body.light-theme {
   --primary-bg: #F8D5D5;
@@ -125,11 +116,6 @@ body {
 .primary-btn { background-color: var(--primary-bg); }
 .secondary-btn { background-color: var(--secondary-bg); }
 .tertiary-btn { background-color: var(--tertiary-bg); }
-
-.primary-btn { background-color: var(--primary-bg); }
-.secondary-btn { background-color: var(--secondary-bg); }
-.tertiary-btn { background-color: var(--tertiary-bg); }
-
 
     /*  폰 최적화  */
     @media (max-width: 520px) {
@@ -320,6 +306,22 @@ body {
       
       resultDiv.appendChild(itemBox);
     }
+
+  // 테마 토글 버튼
+  const themeBtn = document.getElementById('theme-btn');
+  themeBtn.addEventListener('click', () => {
+    // body에 light-theme / dark-theme 토글
+    if(document.body.classList.contains('dark-theme')){
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+      document.body.classList.add('dark-theme');
+    }
+  });
+
+  // 처음 로드 시 기본 테마 지정 (선택 사항)
+  document.body.classList.add('light-theme');
 </script>
 
   <div id="footer-info">
