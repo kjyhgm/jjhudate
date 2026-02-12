@@ -70,6 +70,8 @@
 
     #footer-info { margin-top:30px; text-align:center; font-size:0.8em; color:#555; }
 
+    .menu-desc { font-size: 14px; color: #777; margin-top: 6px; }                    /* 설명글 디자인 */
+
     /* ===== 폰 최적화 ===== */
     @media (max-width: 768px) {
       body {
@@ -87,26 +89,42 @@
   </style>
 </head>
 <body>
-  <h1 style="cursor:pointer;" onclick="location.reload();">😶 오늘 뭐 하지?</h1>
+  <h1 style="cursor:pointer;" onclick="location.reload();">🐹 오늘 뭐 하지?</h1>
     
   <!-- 1차 카테고리 -->
-  <div class="category-title">🍀 어떤 느낌?</div>
+  <div class="category-title">🏠 상황</div>
   <div id="primary" class="container">
-    <button class="primary-btn" onclick="selectPrimary('힐링', this)">힐링</button>
-    <button class="primary-btn" onclick="selectPrimary('액티비티', this)">액티비티</button>
-    <button class="primary-btn" onclick="selectPrimary('문화/체험', this)">문화/체험</button>
-    <button class="primary-btn" onclick="selectPrimary('가볍게', this)">가볍게</button>
-    <button class="primary-btn" onclick="selectPrimary('특별한', this)">특별한</button>
+    <button class="primary-btn" onclick="selectPrimary('야외', this)">야외</button>
+    <button class="primary-btn" onclick="selectPrimary('실내', this)">실내</button>
+    <button class="primary-btn" onclick="selectPrimary('밤', this)">야간</button>
+    <button class="primary-btn" onclick="selectPrimary('가성비', this)">가성비</button>
   </div>
 
   <!-- 2차 카테고리 -->
-  <div class="category-title">🏠 장소</div>
+  <div class="category-title">🍀 어떤 느낌?</div>
   <div id="secondary" class="container">
-    <button class="secondary-btn" onclick="selectSecondary('실내', this)">실내</button>
-    <button class="secondary-btn" onclick="selectSecondary('야외', this)">야외</button>
-    <button class="secondary-btn" onclick="selectSecondary('집콕', this)">집콕</button>
+    <button class="secondary-btn" onclick="selectSecondary('힐링', this)">힐링</button>
+    <button class="secondary-btn" onclick="selectSecondary('액티비티', this)">액티비티</button>
+    <button class="secondary-btn" onclick="selectSecondary('문화/체험', this)">문화/체험</button>
+    <button class="secondary-btn" onclick="selectSecondary('특별', this)">특별한</button>
   </div>
 
+  <!-- 3차 카테고리 -->
+  <div class="category-title">🌸 계절별 추천</div>
+  <div id="tertiary" class="container">
+    <button class="tertiary-btn" onclick="selectTertiary('봄', this)">봄</button>
+    <button class="tertiary-btn" onclick="selectTertiary('여름', this)">여름</button>
+    <button class="tertiary-btn" onclick="selectTertiary('가을', this)">가을</button>
+    <button class="tertiary-btn" onclick="selectTertiary('겨울', this)">겨울</button>
+  </div>
+
+  <div id="footer-info">
+    <p>복수 선택 가능합니다.</p>
+    <p>
+      <a href="https://blog.naver.com/hgmkjy" target="_blank">"jjhu's Day"</a>
+    </p>
+  </div>
+  
   <hr style="border: none; border-top: 2px dotted #ccc; width: 80%; margin: 15px 0;">
   
   <!-- 추천 버튼 -->
@@ -119,21 +137,44 @@
   
   <script>
     const menuData = [
-      
-      { name: "카페", tags: ["데이트", "친구", "힐링", "실내"] },
-      { name: "동물카페", tags: ["데이트", "힐링", "실내"] },
-      { name: "영화보기", tags: ["데이트", "문화/체험", "실내"] },
-      { name: "노래방", tags:["친구", "데이트", "실내", "힐링"]},
-      { name: "셀프사진관", tags:["친구", "데이트", "실내", "그지예요"]},
-      { name: "피시방", tags:["친구", "데이트", "실내", "그지예요"]},
-      
-      { name: "스타필드", tags:["데이트", "실내", "그지예요", "가볍게"]},
 
-      
+      // 실내 가성비
+      { name: "PC방", tags:["실내", "가성비", "밤"] },
+      { name: "집콕 넷플릭스", tags:["실내", "가성비"] },
+      { name: "카페", tags:["힐링", "실내"] },
+      { name: "동물카페", tags:["힐링", "실내"] },
+      { name: "만화카페", tags:["힐링", "실내", "밤"] },
+      { name: "도서관", tags:["힐링", "실내", "여름"] },
+      { name: "영화관", tags:["문화/체험", "실내", "가성비"] },
+      { name: "노래방", tags:["실내", "힐링", "가성비", "밤"] },
+      { name: "셀프사진관", tags:["실내", "가성비"] },
+      { name: "찜질방", tags:["힐링", "실내", "밤", "겨울", "여름"] },
+
+      // 실내 액티비티
+      { name: "오락실", tags:["실내", "액티비티", "가성비", "밤", "여름"] },
+      { name: "플스방", tags:["실내", "액티비티", "여름"] },
+      { name: "볼링장", tags:["실내", "액티비티"] },
+      { name: "탁구장", tags:["실내", "액티비티"] },
+      { name: "당구장", tags:["실내", "액티비티"] },
+      { name: "방탈출카페", tags:["실내", "액티비티"] },
+
+      // 탐방
+      { name: "서울 탐방", tags:["야외", "가성비"],
+      description: "홍대, 강남, 성수, 잠실, 종로, 이태원" },
+      { name: "쇼핑몰 구경", tags:["실내", "가성비"],
+      description: "스타필드, 이케아, 이마트트레이더스, 아이파크몰, 백화점" },
+      { name: "근교 드라이브", tags:["야외", "가성비", "밤"] },
+      { name: "시장 탐방", tags:["야외", "가성비"] },
+      { name: "휴게소 탐방", tags:["야외", "가성비"] },
+      { name: "스타필드 탐방", tags:["실내", "가성비"] },
+      { name: "이케아 탐방", tags:["실내", "가성비"] },
+      { name: "코스트코 탐방", tags:["실내", "가성비"] }
+            
     ];
 
     let primaryChoices = [];
     let secondaryChoices = [];
+    let tertiaryChoices = [];
 
     function selectPrimary(choice, btn) {
       const index = primaryChoices.indexOf(choice);
@@ -157,43 +198,67 @@
       }
     }
 
-    function toggleSolo(btn) {
-      soloSelected = !soloSelected;
-      btn.classList.toggle('selected');
-    }                                       // 혼자 버튼
+    function selectTertiary(choice, btn) {
+      const index = tertiaryChoices.indexOf(choice);
+      if (index === -1) {
+        tertiaryChoices.push(choice);
+        btn.classList.add('selected');
+      } else {
+        tertiaryChoices.splice(index, 1);
+        btn.classList.remove('selected');
+      }
+    }
 
     function showResult() {
       const resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = ""; // 초기화
-
-    let filtered;
-
-    // 아무것도 선택 안 했을 때
-    if (primaryChoices.length === 0 && secondaryChoices.length === 0) {
-      filtered = menuData;
-    } else { // 하나라도 선택했을 때
-      filtered = menuData.filter(item => {
-        const matchPrimary = primaryChoices.length === 0 || primaryChoices.some(tag => item.tags.includes(tag));
-        const matchSecondary = secondaryChoices.length === 0 || secondaryChoices.some(tag => item.tags.includes(tag));
-        return matchPrimary && matchSecondary;
+      resultDiv.innerHTML = "";
+    
+      let filtered = menuData.filter(item => {
+    
+        const matchPrimary =
+          primaryChoices.length === 0 ||
+          primaryChoices.some(tag => item.tags.includes(tag));
+    
+        const matchSecondary =
+          secondaryChoices.length === 0 ||
+          secondaryChoices.some(tag => item.tags.includes(tag));
+    
+        const matchTertiary =
+          tertiaryChoices.length === 0 ||
+          tertiaryChoices.some(tag => item.tags.includes(tag));
+    
+        // 🔥 계절 선택 안 했을 때, 계절필수는 차단
+        if (tertiaryChoices.length === 0 && item.tags.includes("계절")) {
+          return false;
+        }
+    
+        return matchPrimary && matchSecondary && matchTertiary;
       });
-
-    if (filtered.length === 0) {
+    
+      // 🔥 결과 없을 때 처리
+      if (filtered.length === 0) {
+        const span = document.createElement("span");
+        span.className = "menu-item";
+        span.textContent = "걍 집에 처박혀있어";
+        resultDiv.appendChild(span);
+        return;
+      }
+    
+      // 랜덤으로 한 개 선택
+      const randomItem = filtered[Math.floor(Math.random() * filtered.length)];
+      
       const span = document.createElement("span");
       span.className = "menu-item";
-      span.textContent = "걍 집에 처박혀있어";
+      span.textContent = randomItem.name;
       resultDiv.appendChild(span);
-      return;
-    }
-  }
-
-  // 랜덤으로 한 개 선택
-  const randomItem = filtered[Math.floor(Math.random() * filtered.length)];
-  const span = document.createElement("span");
-  span.className = "menu-item";
-  span.textContent = randomItem.name;
-  resultDiv.appendChild(span);
-}
+    
+      // 설명 첨부
+      if (randomItem.description) {
+        const desc = document.createElement("div");
+        desc.className = "menu-desc";
+        desc.textContent = randomItem.description;
+        resultDiv.appendChild(desc);
+      }
 </script>
 
   <div id="footer-info">
