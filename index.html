@@ -246,18 +246,27 @@
       // 랜덤으로 한 개 선택
       const randomItem = filtered[Math.floor(Math.random() * filtered.length)];
       
+      // 🔥 결과 묶는 박스 생성
+      const itemBox = document.createElement("div");
+      itemBox.style.display = "flex";
+      itemBox.style.flexDirection = "column";
+      itemBox.style.alignItems = "center";
+      
+      // 제목
       const span = document.createElement("span");
       span.className = "menu-item";
       span.textContent = randomItem.name;
-      resultDiv.appendChild(span);
-    
-      // 설명 첨부
+      itemBox.appendChild(span);
+      
+      // 설명
       if (randomItem.description) {
         const desc = document.createElement("div");
         desc.className = "menu-desc";
         desc.textContent = randomItem.description;
-        resultDiv.appendChild(desc);
+        itemBox.appendChild(desc);
       }
+      
+      resultDiv.appendChild(itemBox);
     }
 </script>
 
