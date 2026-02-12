@@ -97,9 +97,12 @@
 
 /* 테마 변수 */
 body.light-theme {
-  --primary-bg: #F8D5D5;
-  --secondary-bg: #D5F8D8;
-  --tertiary-bg: #D5D5F8;
+  --primary-bg: #D5B4B4;
+  --primary-selected: #867070;
+  --secondary-bg: #B4D5B4;
+  --secondary-selected: #708670;
+  --tertiary-bg: #B4B4D5;
+  --tertiary-selected: #707086;
   --body-bg: #FFFFFF;       /* 배경색 추가 가능 */
   --text-color: #54423F;    /* 글자색 추가 가능 */
   --roulette-bg: #705656;    /* 룰렛 버튼 배경 */
@@ -108,8 +111,11 @@ body.light-theme {
 
 body.dark-theme {
   --primary-bg: #705656;
+  --primary-selected: #F5EBEB;
   --secondary-bg: #567050;
+  --secondary-selected: #EBF5EB;
   --tertiary-bg: #565670;
+  --tertiary-selected: #EBEBF5;
   --body-bg: #222222;
   --text-color: #F5EBEB;
   --roulette-bg: #F5EBEB;
@@ -123,8 +129,11 @@ body {
 }
 
 .primary-btn { background-color: var(--primary-bg); }
-.secondary-btn { background-color: var(--secondary-bg); }
-.tertiary-btn { background-color: var(--tertiary-bg); }
+.primary-btn.selected { background-color: #867070; color:white; }
+.secondary-btn { background-color: var(--secondary-bg); color: var(--text-color); }
+.secondary-btn.selected { background-color: var(--secondary-selected); color: var(--text-selected); }
+.tertiary-btn { background-color: var(--tertiary-bg); color: var(--text-color); }
+.tertiary-btn.selected { background-color: var(--tertiary-selected); color: var(--text-selected); }
     
 
     /*  폰 최적화  */
