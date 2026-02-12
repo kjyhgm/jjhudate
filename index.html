@@ -109,13 +109,6 @@
     <button class="secondary-btn" onclick="selectSecondary('집콕', this)">집콕</button>
   </div>
 
-  <!-- 혼자 놀기 버튼 -->
-  <div class="container">
-    <button class="tertiary-btn" onclick="toggleSolo(this)">혼자 놀기</button>
-  </div>
-  <hr style="border: none; border-top: 3px dotted #aaa; width: 200px; margin: 20px auto;">
-
-  
   <!-- 추천 버튼 -->
   <div class="container">
     <button onclick="showResult()" style="background-color:black; color:white; padding:12px 36px; font-size: 1.1em; border-radius:18px;">CLICK!</button>
@@ -136,26 +129,11 @@
       
       { name: "스타필드", tags:["데이트", "실내", "그지예요", "가볍게"]},
 
-      { name: "혼밥", tags:["혼자"]},
-      { name: "혼영", tags:["혼자"]},
-      { name: "대청소", tags:["혼자"]},
-      { name: "드라마 보기", tags:["혼자"]},
-      { name: "홈트", tags:["혼자"]},
-      { name: "혼술", tags:["혼자"]},
-      { name: "혼코노", tags:["혼자"]},
-      { name: "카공족이되", tags:["혼자"]},
-      { name: "다이소 쇼핑", tags:["혼자"]},
-      { name: "혼밥", tags:["혼자", "집콕"]},
-      { name: "혼자 멀리?", tags:["혼자"]},
-      { name: "산책이나 해", tags:["혼자"]},
-      { name: "잠이나 처 자", tags:["혼자"]},
-
       
     ];
 
     let primaryChoices = [];
     let secondaryChoices = [];
-    let soloSelected = false;           // 혼자 버튼
 
     function selectPrimary(choice, btn) {
       const index = primaryChoices.indexOf(choice);
@@ -197,7 +175,6 @@
       filtered = menuData.filter(item => {
         const matchPrimary = primaryChoices.length === 0 || primaryChoices.some(tag => item.tags.includes(tag));
         const matchSecondary = secondaryChoices.length === 0 || secondaryChoices.some(tag => item.tags.includes(tag));
-        const matchTertiary = tertiaryChoices.length === 0 || tertiaryChoices.some(tag => item.tags.includes(tag));
         return matchPrimary && matchSecondary;
       });
 
