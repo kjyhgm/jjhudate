@@ -380,7 +380,9 @@
 <script>
 function toggleMenuTable() {
   const container = document.getElementById('menu-table-container');
-  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+  container.style.display =
+    container.style.display === 'none' ? 'block' : 'none';
+
   if (container.style.display === 'block') {
     populateMenuTable();
   }
@@ -388,85 +390,94 @@ function toggleMenuTable() {
 
 function populateMenuTable() {
   const container = document.getElementById('menu-grid');
-  container.innerHTML = ''; // 초기화
+  container.innerHTML = '';
 
   menuData.forEach(item => {
     const div = document.createElement('div');
-    div.style.padding = '8px';
-    div.style.border = '1px solid #ccc';
-    div.style.borderRadius = '5px';
-    div.style.position = 'relative';
-    div.style.cursor = 'pointer';
-    div.style.background = '#fef5f7';
-    div.style.transition = 'background 0.2s';
+    div.className = 'menu-card';
 
-    // 제목
-    const title = document.createElement('div');
-    title.textContent = item.name;
-    title.style.width = '100%';
-    title.style.height = '100%';
-    title.style.display = 'block';
-    div.appendChild(title);
-
-    // 미니팝업 설명
-    if (item.description) {
-      const popup = document.createElement('div');
-      popup.textContent = item.description;
-    
-      popup.style.position = 'absolute';
-      popup.style.left = '50%';
-      popup.style.top = '100%';
-      popup.style.transform = 'translateX(-50%)';
-      popup.style.marginTop = '6px';
-    
-      popup.style.background = '#fdf9f6';
-      popup.style.padding = '8px 12px';
-      popup.style.border = '1px solid #ccc';
-      popup.style.borderRadius = '10px';
-      popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
-    
-      popup.style.whiteSpace = 'pre-wrap';
-      popup.style.wordBreak = 'break-word';
-      popup.style.boxSizing = 'border-box';
-    
-      popup.style.display = 'none';
-      popup.style.zIndex = '100';
-    
-      popup.style.minWidth = '180px';
-      popup.style.maxWidth = '280px';
-      popup.style.width = 'max-content';
-    
-      div.appendChild(popup);
-    
-      div.addEventListener('click', () => {
-    
-        // 모든 팝업 닫기
-        document.querySelectorAll('#menu-grid div > div:nth-child(2)')
-          .forEach(p => { if (p !== popup) p.style.display = 'none'; });
-    
-        // 모든 카드 색 초기화
-        document.querySelectorAll('#menu-grid div')
-          .forEach(c => {
-            c.style.background = '#fef5f7';
-            const t = c.querySelector('div');
-            if (t) t.style.background = 'transparent';
-          });
-    
-        if (popup.style.display === 'none') {
-          popup.style.display = 'block';
-          div.style.background = '#fde2e9';
-          title.style.background = '#fde2e9';
-        } else {
-          popup.style.display = 'none';
-          div.style.background = '#fef5f7';
-          title.style.background = 'transparent';
-        }
-      });
-    }
+    div.innerHTML = `
+      <div class="title">${item.name}</div>
+      ${item.description ? `<div class="popup">${item.description}</div>` : ''}
+    `;
 
     container.appendChild(div);
   });
 }
+
+document.getElementById('menu-grid').addEventListener('click', e => {
+  const card = e.target.closest('.menu-card');
+  if (!card) return;
+
+  document.querySelectorAll('.menu-card')
+    .forEach(c => c.classList.remove('active'));
+
+  card.classList.toggle('active');
+
+  const popup = card.querySelector('.popup');
+  if (!popup) return;
+  
+  popup.style.left = '50%';          // 기본 중앙
+  popup.style.transform = 'translateX(-50%)';
+  
+  const rect = popup.getBoundingClientRect();        // 실제 위치 계산
+  
+  if (rect.left < 5) {              // 왼쪽 넘치면
+    popup.style.left = '0';
+    popup.style.transform = 'translateX(0)'; }
+  if (rect.right > window.innerWidth - 5) {         // 오른쪽 넘치면
+    popup.style.left = '100%';
+    popup.style.transform = 'translateX(-100%)'; }
+  
+});
 </script>
+
+<style>
+#menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.menu-card {
+  position: relative;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fef5f7;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.menu-card.active {
+  background: #fde2e9;
+}
+
+.popup {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6px;
+
+  background: #fdf9f6;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 260px;
+
+  display: none;
+  z-index: 100;
+}
+
+.menu-card.active .popup {
+  display: block;
+}
+</style>
 </body>
 </html>
