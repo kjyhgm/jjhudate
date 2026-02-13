@@ -403,6 +403,7 @@ function populateMenuTable() {
     // 제목
     const title = document.createElement('div');
     title.textContent = item.name;
+    title.style.background = 'transparent'; // 카드 색 덮지 않게
     div.appendChild(title);
 
     // 미니팝업 설명
