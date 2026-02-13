@@ -395,9 +395,10 @@ function populateMenuTable() {
     div.style.padding = '8px';
     div.style.border = '1px solid #ccc';
     div.style.borderRadius = '5px';
-    div.style.position = 'relative';
+    div.style.position = 'relative'; // 카드 기준으로 팝업 위치
     div.style.cursor = 'pointer';
     div.style.background = '#fef5f7';
+    div.style.transition = 'background 0.2s'; // 클릭 시 색 부드럽게
 
     // 제목
     const title = document.createElement('div');
@@ -406,56 +407,55 @@ function populateMenuTable() {
 
     // 미니팝업 설명
     if (item.description) {
-    const popup = document.createElement('div');
-    popup.textContent = item.description;
-    popup.style.position = 'absolute';
-    popup.style.top = '100%';
-    popup.style.background = '#fdf9f6';
-    popup.style.padding = '6px 10px';
-    popup.style.border = '1px solid #ccc';
-    popup.style.borderRadius = '10px';
-    popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
-    popup.style.whiteSpace = 'pre-wrap';
-    popup.style.display = 'none';
-    popup.style.zIndex = '10';
-    popup.style.minWidth = '180px'; popup.style.maxWidth = '400px'; // 최대 폭 늘림
-    popup.style.width = 'auto';
-  
-    div.appendChild(popup);
-  
-    // 클릭 토글 + 다른 팝업 닫기
-    div.addEventListener('click', () => {
-      // 모든 팝업 닫기
-      const allPopups = document.querySelectorAll('#menu-grid div > div:nth-child(2)');
-      allPopups.forEach(p => { if (p !== popup) p.style.display = 'none'; });
+      const popup = document.createElement('div');
+      popup.textContent = item.description;
+      popup.style.position = 'absolute';
+      popup.style.top = '100%'; // 카드 바로 아래
+      popup.style.left = '50%'; // 카드 중앙 기준
+      popup.style.transform = 'translateX(-50%)';
+      popup.style.background = '#fdf9f6';
+      popup.style.padding = '6px 10px';
+      popup.style.border = '1px solid #ccc';
+      popup.style.borderRadius = '10px';
+      popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+      popup.style.whiteSpace = 'pre-wrap';
+      popup.style.display = 'none';
+      popup.style.zIndex = '10';
+      popup.style.minWidth = '180px';
+      popup.style.maxWidth = '400px';
+      popup.style.width = 'auto';
 
-      // 모든 활동 박스 배경 초기화
-      const allDivs = document.querySelectorAll('#menu-grid > div');
-      allDivs.forEach(d => {
-        if (d !== div) d.style.background = '#fef5f7'; // 기본 색
+      div.appendChild(popup);
+
+      // 클릭 이벤트
+      div.addEventListener('click', () => {
+        // 모든 팝업 닫기
+        const allPopups = document.querySelectorAll('#menu-grid div > div:nth-child(2)');
+        allPopups.forEach(p => { if (p !== popup) p.style.display = 'none'; });
+
+        // 모든 카드 색 원래대로
+        const allCards = document.querySelectorAll('#menu-grid div');
+        allCards.forEach(c => { c.style.background = '#fef5f7'; });
+
+        // 현재 팝업 토글
+        if (popup.style.display === 'none') {
+          popup.style.display = 'block';
+          div.style.background = '#fde2e9'; // 클릭 시 색 변경
+          popup.style.zIndex = '100';
+        } else {
+          popup.style.display = 'none';
+          div.style.background = '#fef5f7'; // 원래 색
+          popup.style.zIndex = '10';
+        }
       });
-      
-      // 현재 팝업 표시 토글
-      if (popup.style.display === 'none') {
-        popup.style.display = 'block';
-        
-        // 부모(div) 좌표 계산
-        const rect = div.getBoundingClientRect();
-        const parentCenter = rect.left + rect.width / 2 + window.scrollX; // 화면 기준 부모 중앙
-        popup.style.left = parentCenter + 'px';
-        popup.style.top = rect.bottom + window.scrollY + 5 + 'px'; // 부모 바로 아래
-        popup.style.transform = 'translateX(-50%)';
-        popup.style.zIndex = '100';
-        
-        // 클릭한 박스 색 바꾸기
-        div.style.background = '#b46880'; // 선택 시 색
-      } else {
-        popup.style.display = 'none';
-        popup.style.zIndex = '10';
-        div.style.background = '#fef5f7'; // 다시 기본 색
-      }
-    });
-  }
+    } else {
+      // 설명 없는 경우도 클릭 시 색 바뀌게
+      div.addEventListener('click', () => {
+        const allCards = document.querySelectorAll('#menu-grid div');
+        allCards.forEach(c => { c.style.background = '#fef5f7'; });
+        div.style.background = '#fde2e9';
+      });
+    }
 
     container.appendChild(div);
   });
