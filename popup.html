@@ -382,31 +382,39 @@
 
   menuData.forEach(item => {
     const div = document.createElement('div');
-    div.style.padding = '5px';
+    div.style.padding = '8px';
     div.style.border = '1px solid #ccc';
     div.style.borderRadius = '5px';
-    div.style.position = 'relative'; // 설명 위치 잡기
+    div.style.position = 'relative';
     div.style.cursor = 'pointer';
+    div.style.background = '#fff';
     
     // 제목
     const title = document.createElement('div');
     title.textContent = item.name;
     div.appendChild(title);
 
-    // 설명 (숨김)
+    // 미니팝업 설명
     if(item.description) {
-      const desc = document.createElement('div');
-      desc.textContent = item.description;
-      desc.style.fontSize = '0.75em';
-      desc.style.color = '#6a4f4a';
-      desc.style.marginTop = '4px';
-      desc.style.display = 'none';
-      desc.style.textAlign = 'left';
-      div.appendChild(desc);
+      const popup = document.createElement('div');
+      popup.textContent = item.description;
+      popup.style.position = 'absolute';
+      popup.style.top = '100%';
+      popup.style.left = '50%';
+      popup.style.transform = 'translateX(-50%)';
+      popup.style.background = '#fdf9f6';
+      popup.style.padding = '6px 10px';
+      popup.style.border = '1px solid #ccc';
+      popup.style.borderRadius = '10px';
+      popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+      popup.style.whiteSpace = 'pre-wrap';
+      popup.style.display = 'none';
+      popup.style.zIndex = '100';
+      div.appendChild(popup);
 
       // 클릭 토글
       div.addEventListener('click', () => {
-        desc.style.display = desc.style.display === 'none' ? 'block' : 'none';
+        popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
       });
     }
 
