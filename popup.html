@@ -344,7 +344,7 @@
       if (randomItem.description) {
         const desc = document.createElement("div");
         desc.className = "menu-desc";
-        desc.textContent = randomItem.description;
+        desc.innerHTML = randomItem.description;
         itemBox.appendChild(desc);
       }
       
