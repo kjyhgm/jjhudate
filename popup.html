@@ -443,10 +443,11 @@ document.getElementById('menu-grid').addEventListener('click', e => {
 <style>
 #menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 12px;
-}
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
 
+#menu-table-container {
+  overflow: visible;   /* 🔥 여기 추가 */ }
+  
 .menu-card {
   position: relative;
   overflow: visible;
