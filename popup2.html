@@ -90,7 +90,7 @@
     /*  폰 최적화  */
     @media (max-width: 520px) {
       body { font-size: 0.9rem; padding: 12px; }
-      h1 { font-size: 1.3em; }
+      h1 { font-size: 1.1em; }
       .menu { font-size: 1.1em; gap: 6px; }
       .menu-item { padding: 10px 14px; font-size: 0.9em; }
       button, .primary-btn, .secondary-btn, .tertiary-btn { font-size: 0.85em; padding: 6px 12px; margin: 2px; }
@@ -423,6 +423,10 @@ document.getElementById('menu-list').addEventListener('click', e => {
   margin-top: 20px;
   width: 100%;
   max-width: 700px;
+  background: #e3d4ce;
+  padding: 10px;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
 
 #menu-list {
@@ -454,7 +458,8 @@ document.getElementById('menu-list').addEventListener('click', e => {
   transform: translateX(-50%);
   margin-top: 8px;
 
-  width: 320px;
+  width: 90vw;
+  max-width: 320px; 
   background: #fdf9f6;
   padding: 12px;
   border-radius: 12px;
@@ -469,6 +474,12 @@ document.getElementById('menu-list').addEventListener('click', e => {
 
 .menu-card.active .popup {
   display: block;
+}
+
+  @media (max-width: 520px) {
+  .menu-card {
+    width: calc(50% - 8px);
+  }
 }
 
 </style>
