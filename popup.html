@@ -182,15 +182,17 @@
       // 야외
       { name: "놀이공원", tags:["야외", "액티비티", "힐링", "봄", "가을", "여름"], 
        description: "에버랜드, 롯데월드, 서울랜드, 경주월드 등" },
-      { name: "보트 타기", tags:["야외", "액티비티", "봄", "가을", "여름"],
-       description: "문보트: 김포 라베니체, 송도 센트럴파크 카약/카누: 한강(뚝섬/양화)" },
       { name: "자전거 타기", tags:["야외", "액티비티", "힐링", "봄", "가을", "여름", "가성비"] },
       { name: "한강 나들이", tags:["야외", "힐링", "봄", "가을", "가성비", "밤"], 
        description: "여의도, 반포, 뚝섬, 망원, 잠실, 이촌, 잠원, 양화, 난지" }, 
       { name: "피크닉", tags:["야외", "힐링", "봄", "가을", "가성비", "밤"], 
-       description: "한강공원, 서울숲, 경의선숲길, 일산호수공원, 양재시민의숲, 올림픽공원, 평화누리공원, 송도센트럴파크, 중랑캠핑숲, 시흥 갯골생태공원, 하남 미사경정공원, 남양주 물의정원, 김포라베니체" },
+       description: `한강공원, 서울숲, 경의선숲길, 일산호수공원, 양재시민의숲, 올림픽공원, 평화누리공원, 송도센트럴파크, 
+       중랑캠핑숲, 시흥 갯골생태공원, 하남 미사경정공원, 남양주 물의정원, 김포라베니체` },
       { name: "수변공원 산책", tags:["야외", "힐링", "봄", "가을", "여름", "밤", "가성비"], 
-       description: "석촌호수, 송도 센트럴파크, 아라뱃길, 일산호수공원, 청라호수공원, 김포 라베니체, 하남 미사경정공원, 서서울호수공원, 광교호수공원, 세종호수공원, 파주운정호수공원, 동탄호수공원" },
+       description: `석촌호수, 송도 센트럴파크, 아라뱃길, 일산호수공원, 청라호수공원, 김포 라베니체, 하남 미사경정공원,
+       서서울호수공원, 광교호수공원, 세종호수공원, 파주운정호수공원, 동탄호수공원` },
+      { name: "보트 타기", tags:["야외", "액티비티", "봄", "가을", "여름"],
+       description: `문보트: 김포 라베니체, 송도 센트럴파크 <br> 카약/카누: 한강(뚝섬/양화)` },
       { name: "레일바이크 타기", tags:["야외", "힐링", "액티비티", "봄", "가을", "여름"], 
        description: "의왕 왕송호수, 영종씨사이드, 가평, 양평, 강촌" },
       { name: "루지/카트 체험", tags:["야외", "액티비티", "봄", "가을", "여름"], 
@@ -409,16 +411,27 @@ function populateMenuTable() {
       popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
       popup.style.whiteSpace = 'pre-wrap';
       popup.style.display = 'none';
-      popup.style.zIndex = '100';
+      popup.style.zIndex = '10';
       popup.style.minWidth = '180px';
-      popup.style.maxWidth = '300px';
+      popup.style.maxWidth = '400px'; // 최대 폭 늘림
       popup.style.width = 'auto';
 
       div.appendChild(popup);
 
-      // 클릭 토글
+      // 클릭 토글 + 다른 팝업 닫기
       div.addEventListener('click', () => {
+        // 모든 팝업 닫기
+        const allPopups = document.querySelectorAll('#menu-grid div > div:nth-child(2)');
+        allPopups.forEach(p => {
+          if (p !== popup) p.style.display = 'none';
+        });
+
+        // 현재 팝업 표시 토글
         popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+
+        // 현재 팝업을 맨 위로
+        if (popup.style.display === 'block') popup.style.zIndex = '100';
+        else popup.style.zIndex = '10';
       });
     }
 
