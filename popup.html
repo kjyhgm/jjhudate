@@ -416,20 +416,28 @@ document.getElementById('menu-grid').addEventListener('click', e => {
 
   const popup = card.querySelector('.popup');
   if (!popup) return;
+
+  const popupWidth = 320;
+  const cardRect = card.getBoundingClientRect();
+  const cardCenter = cardRect.left + cardRect.width / 2;
   
-  popup.style.left = '50%';          // 기본 중앙
+  // 기본 중앙
+  popup.style.left = '50%';
   popup.style.transform = 'translateX(-50%)';
   
-  const rect = popup.getBoundingClientRect();        // 실제 위치 계산
-  
-  if (rect.left < 5) {              // 왼쪽 넘치면
+  // 왼쪽 공간 부족
+  if (cardCenter < popupWidth / 2) {
     popup.style.left = '0';
-    popup.style.transform = 'translateX(0)'; }
-  if (rect.right > window.innerWidth - 5) {         // 오른쪽 넘치면
-    popup.style.left = '100%';
-    popup.style.transform = 'translateX(-100%)'; }
+    popup.style.transform = 'translateX(0)';
+  }
   
+  // 오른쪽 공간 부족
+  else if (window.innerWidth - cardCenter < popupWidth / 2) {
+    popup.style.left = '100%';
+    popup.style.transform = 'translateX(-100%)';
+  }
 });
+  
 </script>
 
 <style>
@@ -441,6 +449,7 @@ document.getElementById('menu-grid').addEventListener('click', e => {
 
 .menu-card {
   position: relative;
+  overflow: visible;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -459,20 +468,22 @@ document.getElementById('menu-grid').addEventListener('click', e => {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 6px;
+  margin-top: 8px;
 
   background: #fdf9f6;
-  padding: 8px 12px;
+  padding: 12px 16px;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-width: 260px;
+  width: 320px;
+  max-width: 320px;
+
+  white-space: normal;
+  line-height: 1.5;
 
   display: none;
-  z-index: 100;
+  z-index: 999;
 }
 
 .menu-card.active .popup {
