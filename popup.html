@@ -368,15 +368,15 @@
 </div>
 
 <script>
-  function toggleMenuTable() {
-    const container = document.getElementById('menu-table-container');
-    container.style.display = container.style.display === 'none' ? 'block' : 'none';
-    if(container.style.display === 'block') {
-      populateMenuTable();
-    }
+function toggleMenuTable() {
+  const container = document.getElementById('menu-table-container');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+  if (container.style.display === 'block') {
+    populateMenuTable();
   }
+}
 
-  function populateMenuTable() {
+function populateMenuTable() {
   const container = document.getElementById('menu-grid');
   container.innerHTML = ''; // 초기화
 
@@ -388,14 +388,14 @@
     div.style.position = 'relative';
     div.style.cursor = 'pointer';
     div.style.background = '#fff';
-    
+
     // 제목
     const title = document.createElement('div');
     title.textContent = item.name;
     div.appendChild(title);
 
     // 미니팝업 설명
-    if(item.description) {
+    if (item.description) {
       const popup = document.createElement('div');
       popup.textContent = item.description;
       popup.style.position = 'absolute';
@@ -410,6 +410,10 @@
       popup.style.whiteSpace = 'pre-wrap';
       popup.style.display = 'none';
       popup.style.zIndex = '100';
+      popup.style.minWidth = '180px';
+      popup.style.maxWidth = '300px';
+      popup.style.width = 'auto';
+
       div.appendChild(popup);
 
       // 클릭 토글
