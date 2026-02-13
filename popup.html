@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘 뭐 하지?</title>
+
+  <!-- 폰트 불러오기 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Gowun Dodum', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-color: #fdf9f6;
+      color: #4a3430;
+      min-height: 100vh;
+    }
+
+    /* 헤더 디자인 */
+    h1 { font-size: 2em; }
+    .header { width: 100%; background-color: #705656; padding: 20px 0; text-align: center; margin-bottom: 12px; }
+    .header h1 { color: white; margin: 0; }
+
+    /* 메뉴 결과 박스 */
+    .menu {
+      font-size: 1.7em;
+      margin-bottom: 20px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .menu-item {
+      display: inline-block;
+      padding: 0;
+      background: none;
+      border-radius: 0;
+      color: #4a3430;
+    }
+
+    /* 버튼 스타일 */
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1em;
+      font-family: 'Gowun Dodum', sans-serif;
+    }
+
+    /* 카테고리 제목 */
+    .category-title { margin-top: 15px; font-weight: bold; font-size: 0.9em; display: flex; align-items: center; gap: 5px; }
+    .container { text-align: center; margin-bottom: 10px; }
+
+    /* 카테고리 버튼 */
+    .primary-btn, .secondary-btn, .tertiary-btn { margin: 4px; padding: 8px 16px; font-size: 1em; }
+    
+    .primary-btn { background-color: #fde2e9; color: #54423f; }
+    .primary-btn.selected { background-color: #c98ca1; color:white; }
+    .secondary-btn { background-color: #edd1f9; color: #54423f; }
+    .secondary-btn.selected { background-color: #8462a1; color:white; }
+    .tertiary-btn { background-color: #fbefe9; color: #54423f; }
+    .tertiary-btn.selected { background-color: #977f6c; color:white; }
+
+    .roulette-btn { background-color: #705656; color: white; padding: 10px 28px; font-size: 1em; border-radius: 18px; cursor: pointer; transition: 0.15s; }
+    .roulette-btn:active { background-color: #F5EBEB; color: #705656; transform: scale(0.9); }
+
+    #footer-info { margin-top:30px; text-align:center; font-size:0.8em; color:#555; }
+
+    /* 결과 카드 전체 박스 */
+    .result-card {
+      background-color: #e3d4ce;
+      padding: 25px 20px;
+      border-radius: 30px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+    .result-title { font-size: 1.1em; font-weight: bold; margin-bottom: 8px; }       /* 결과 제목 */
+    .menu-desc { font-size: 0.75em; color: #6a4f4a; line-height: 1.5; word-break: keep-all; white-space: pre-wrap; }            /* 설명 글씨 */
+    
+    /*  폰 최적화  */
+    @media (max-width: 520px) {
+      body { font-size: 0.9rem; padding: 12px; }
+      h1 { font-size: 1.3em; }
+      .menu { font-size: 1.1em; gap: 6px; }
+      .menu-item { padding: 10px 14px; font-size: 0.9em; }
+      button, .primary-btn, .secondary-btn, .tertiary-btn { font-size: 0.85em; padding: 6px 12px; margin: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>오늘 뭐하지?</h1>
+  </div>
+    
+  <!-- 1차 카테고리 -->
+  <div class="category-title">🏠 상황</div>
+  <div id="primary" class="container">
+    <button class="primary-btn" onclick="selectPrimary('야외', this)">야외</button>
+    <button class="primary-btn" onclick="selectPrimary('실내', this)">실내</button>
+    <button class="primary-btn" onclick="selectPrimary('밤', this)">야간</button>
+    <button class="primary-btn" onclick="selectPrimary('가성비', this)">가성비</button>
+  </div>
+
+  <!-- 2차 카테고리 -->
+  <div class="category-title">🍀 어떤 느낌?</div>
+  <div id="secondary" class="container">
+    <button class="secondary-btn" onclick="selectSecondary('힐링', this)">힐링</button>
+    <button class="secondary-btn" onclick="selectSecondary('액티비티', this)">액티비티</button>
+    <button class="secondary-btn" onclick="selectSecondary('문화체험', this)">문화/체험</button>
+    <button class="secondary-btn" onclick="selectSecondary('특별', this)">특별한</button>
+  </div>
+
+  <!-- 3차 카테고리 -->
+  <div class="category-title">🌸 계절별 추천(이 카테고리만 선택 권장)</div>
+  <div id="tertiary" class="container">
+    <button class="tertiary-btn" onclick="selectTertiary('봄', this)">봄</button>
+    <button class="tertiary-btn" onclick="selectTertiary('여름', this)">여름</button>
+    <button class="tertiary-btn" onclick="selectTertiary('가을', this)">가을</button>
+    <button class="tertiary-btn" onclick="selectTertiary('겨울', this)">겨울</button>
+  </div>
+  
+  <hr style="border: none; border-top: 2px dotted #ccc; width: 80%; margin: 15px 0;">
+  
+  <!-- 결과 출력 버튼 -->
+  <div class="container">
+    <button class="roulette-btn" onclick="showResult()">CLICK!</button>
+  </div>
+
+  <!-- 결과 출력 -->
+  <div class="menu" id="result">왜케 할 게 없지</div>
+  
+  <script>
+    const menuData = [
+
+      // 실내 가성비
+      { name: "PC방", tags:["실내", "가성비", "밤"] },
+      { name: "집콕 넷플릭스", tags:["실내", "가성비", "밤"] },
+      { name: "카페", tags:["힐링", "실내", "가성비"] },
+      { name: "동물카페", tags:["힐링", "실내"] },
+      { name: "만화카페", tags:["힐링", "실내", "밤", "가성비"] },
+      { name: "도서관", tags:["힐링", "실내", "여름", "가을"] },
+      { name: "영화관", tags:["문화체험", "실내", "가성비"] },
+      { name: "노래방", tags:["실내", "힐링", "가성비", "밤"] },
+      { name: "셀프사진관", tags:["실내", "가성비"] },
+      { name: "찜질방", tags:["힐링", "실내", "밤", "겨울", "여름", "가성비"] },
+      { name: "와인/칵테일바", tags:["힐링", "실내", "밤"] },
+      { name: "루프탑 술집", tags:["힐링", "야외", "밤", "여름", "가을"] },
+      { name: "이자카야", tags:["실내", "밤", "여름", "가을"] },
+      { name: "레스토랑", tags:["특별", "실내"] },
+
+      { name: "영화관", tags:["문화체험", "실내", "가성비", "여름", "밤"] },
+      { name: "전시회/미술관", tags:["문화체험", "실내", "가성비", "여름"] },
+      { name: "과학관", tags:["문화체험", "실내", "가성비"] },
+      { name: "박물관", tags:["문화체험", "실내", "가성비", "여름"] },
+      { name: "식물원", tags:["야외", "실내", "힐링", "봄", "가을"] },
+      { name: "동물원", tags:["야외", "특별", "가을", "힐링", "봄"] },
+      { name: "아쿠아리움", tags:["힐링", "실내", "특별", "여름"] },
+      { name: "체험 공방", tags:["문화체험", "실내", "특별", "여름", "가을"], 
+        description: "반지, 향수, 가죽, 도자기, 비누" },
+      { name: "쿠킹/베이킹 클래스", tags:["문화체험", "실내", "특별", "여름"] },
+
+      // 실내 액티비티
+      { name: "오락실", tags:["실내", "액티비티", "가성비", "밤", "여름"] },
+      { name: "플스방", tags:["실내", "액티비티", "여름"] },
+      { name: "볼링장", tags:["실내", "액티비티"] },
+      { name: "탁구장", tags:["실내", "액티비티"] },
+      { name: "당구장", tags:["실내", "액티비티"] },
+      { name: "방탈출카페", tags:["실내", "액티비티"] },
+      { name: "아이스링크장", tags:["실내", "액티비티", "야외", "겨울", "여름"] },
+
+      // 야외
+      { name: "놀이공원", tags:["야외", "액티비티", "힐링", "봄", "가을", "여름"], 
+       description: "에버랜드, 롯데월드, 서울랜드, 경주월드 등" },
+      { name: "보트 타기", tags:["야외", "액티비티", "봄", "가을", "여름"],
+       description: "문보트: 김포 라베니체, 송도 센트럴파크 카약/카누: 한강(뚝섬/양화)" },
+      { name: "자전거 타기", tags:["야외", "액티비티", "힐링", "봄", "가을", "여름", "가성비"] },
+      { name: "한강 나들이", tags:["야외", "힐링", "봄", "가을", "가성비", "밤"], 
+       description: "여의도, 반포, 뚝섬, 망원, 잠실, 이촌, 잠원, 양화, 난지" }, 
+      { name: "피크닉", tags:["야외", "힐링", "봄", "가을", "가성비", "밤"], 
+       description: "한강공원, 서울숲, 경의선숲길, 일산호수공원, 양재시민의숲, 올림픽공원, 평화누리공원, 송도센트럴파크, 중랑캠핑숲, 시흥 갯골생태공원, 하남 미사경정공원, 남양주 물의정원, 김포라베니체" },
+      { name: "수변공원 산책", tags:["야외", "힐링", "봄", "가을", "여름", "밤", "가성비"], 
+       description: "석촌호수, 송도 센트럴파크, 아라뱃길, 일산호수공원, 청라호수공원, 김포 라베니체, 하남 미사경정공원, 서서울호수공원, 광교호수공원, 세종호수공원, 파주운정호수공원, 동탄호수공원" },
+      { name: "레일바이크 타기", tags:["야외", "힐링", "액티비티", "봄", "가을", "여름"], 
+       description: "의왕 왕송호수, 영종씨사이드, 가평, 양평, 강촌" },
+      { name: "루지/카트 체험", tags:["야외", "액티비티", "봄", "가을", "여름"], 
+       description: "강화씨사이드리조트, 통영 루지, 파주 스피드파크, 잠실카트체험장, 제주 윈드카트" },
+      { name: "케이블카 타기", tags:["야외", "힐링", "봄", "가을", "여름", "겨울"], 
+       description: "남산, 제부도, 대부도, 파주 임진각, 포천 산정호수" },
+      { name: "짚라인 타기", tags:["야외", "힐링", "봄", "가을", "여름", "겨울"], 
+       description: "강화레포츠파크, 가평 남이섬, 의왕 왕송호수, 용인 자연휴양림" },
+      
+      { name: "캠핑/글램핑", tags:["야외", "힐링", "봄", "가을", "여름", "겨울", "밤"] },
+      { name: "등산", tags:["야외", "액티비티", "봄", "가을", "여름", "가성비"] },
+      { name: "별 보러 가기", tags:["야외", "힐링", "봄", "가을", "여름", "겨울", "밤", "가성비"] },
+      { name: "바닷가 산책", tags:["야외", "힐링", "봄", "가을", "여름", "겨울", "밤", "가성비"] },
+    
+      // 탐방
+      { name: "서울 탐방", tags:["야외", "가성비", "밤"],
+        description: "홍대, 강남, 성수, 잠실, 종로, 이태원, 용산, 중구" },
+      { name: "테마마을", tags:["야외", "가성비", "봄", "가을", "여름"],
+        description: "민속촌, 한옥마을, 헤이리예술마을 등" },
+      { name: "대형마트 구경", tags:["실내", "가성비", "여름", "밤"],
+        description: "이케아, 이마트, 코스트코, 다이소, 롯데마트" },
+      { name: "쇼핑몰 구경", tags:["실내", "가성비", "여름", "밤"],
+        description: "신세계, 롯데, 현대 백화점/아울렛, 스타필드, 타임스퀘어, 아이파크몰, ak플라자" },
+      { name: "한강 드라이브", tags:["야외", "가성비", "봄", "밤", "여름", "가을"] },
+      { name: "서울 근교 탐방", tags:["야외", "가성비", "밤", "여름", "가을"],
+       description: "파주, 고양, 부천, 이천, 과천, 용인, 김포" },
+      { name: "시장거리 탐방", tags:["야외", "가성비", "밤"] },
+      { name: "휴게소 탐방", tags:["야외", "가성비"] },
+      
+      // 계절
+      { name: "봄 축제", tags:["힐링", "야외", "봄", "계절", "특별", "가성비"], 
+        description: "벚꽃, 진달래, 유채꽃, 산수유, 튤립 축제" },
+      { name: "벚꽃 구경", tags:["힐링", "야외", "밤", "봄", "계절", "가성비"] },
+      { name: "봄꽃 구경", tags:["힐링", "야외", "밤", "봄", "계절", "가성비"], 
+        description: "남양주 물의정원" },
+      { name: "워터파크", tags:["액티비티", "실내", "야외", "여름", "계절"] },
+      { name: "해수욕장", tags:["액티비티", "야외", "여름", "계절", "가성비"] },
+      { name: "여름 축제", tags:["힐링", "액티비티", "야외", "여름", "계절", "밤", "특별"], 
+        description: "워터페스티벌, 국가유산야행, 수국축제, 맥주축제, 락페, 야시장" },
+      { name: "단풍 구경", tags:["힐링", "야외", "가을", "계절", "가성비"],  
+        description: "하남 미사경정공원" },
+      { name: "핑크뮬리/갈대밭 구경", tags:["힐링", "야외", "가을", "계절", "가성비"],  
+        description: "시흥 갯골생태공원, 하남 미사경정공원" },
+      { name: "가을꽃구경", tags:["힐링", "야외", "가을", "계절", "가성비"],  
+        description: "남양주 물의정원" },
+      { name: "가을 축제", tags:["힐링", "야외", "가을", "계절", "특별", "가성비"],  
+        description: "코스모스, 국화, 문화제" },
+      { name: "놀이공원 할로윈 시즌", tags:["야외", "액티비티", "특별", "계절", "가을"] },
+      { name: "눈썰매장", tags:["액티비티", "야외", "밤", "겨울", "계절"] },
+      { name: "스키장", tags:["액티비티", "야외", "밤", "겨울", "계절"] },
+      { name: "온천 가기", tags:["힐링", "야외", "밤", "겨울", "계절"],
+        description: "이천테르메덴, 캐리비안베이, 웅진플레이도시 등" },
+      { name: "겨울 축제", tags:["힐링", "야외", "겨울", "계절", "특별", "가성비", "밤"], 
+        description: "빛축제, 눈축제, 빙어축제" },
+      { name: "놀이공원 크리스마스 시즌", tags:["야외", "액티비티", "특별", "힐링", "겨울", "계절"] },
+      { name: "2월 정월대보름 축제", tags:["힐링", "야외", "밤", "겨울", "계절", "특별", "가성비"] },
+      { name: "1월 1일 해돋이 보기", tags:["힐링", "야외", "겨울", "계절", "특별"] },
+      { name: "같이 신년 계획 세우기", tags:["실내", "겨울", "계절", "가성비", "밤"], 
+        description: "한 해를 돌아보면서 같이 계획 세우기" },
+    ];
+
+    let primaryChoices = [];
+    let secondaryChoices = [];
+    let tertiaryChoices = [];
+
+    function selectPrimary(choice, btn) {
+      const index = primaryChoices.indexOf(choice);
+      if (index === -1) {
+        primaryChoices.push(choice);
+        btn.classList.add('selected');
+      } else {
+        primaryChoices.splice(index, 1);
+        btn.classList.remove('selected');
+      }
+    }
+
+    function selectSecondary(choice, btn) {
+      const index = secondaryChoices.indexOf(choice);
+      if (index === -1) {
+        secondaryChoices.push(choice);
+        btn.classList.add('selected');
+      } else {
+        secondaryChoices.splice(index, 1);
+        btn.classList.remove('selected');
+      }
+    }
+
+    function selectTertiary(choice, btn) {
+      const index = tertiaryChoices.indexOf(choice);
+      if (index === -1) {
+        tertiaryChoices.push(choice);
+        btn.classList.add('selected');
+      } else {
+        tertiaryChoices.splice(index, 1);
+        btn.classList.remove('selected');
+      }
+    }
+
+    function showResult() {
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
+    
+      let filtered = menuData.filter(item => {
+    
+        const matchPrimary =
+          primaryChoices.length === 0 ||
+          primaryChoices.some(tag => item.tags.includes(tag));
+    
+        const matchSecondary =
+          secondaryChoices.length === 0 ||
+          secondaryChoices.some(tag => item.tags.includes(tag));
+    
+        const matchTertiary =
+          tertiaryChoices.length === 0 ||
+          tertiaryChoices.some(tag => item.tags.includes(tag));
+    
+        // 🔥 계절 선택 안 했을 때, 계절필수는 차단
+        if (tertiaryChoices.length === 0 && item.tags.includes("계절")) {
+          return false;
+        }
+    
+        return matchPrimary && matchSecondary && matchTertiary;
+      });
+    
+      // 🔥 결과 없을 때 처리
+      if (filtered.length === 0) {
+        const span = document.createElement("span");
+        span.className = "menu-item";
+        span.textContent = "걍 집에 처박혀있어";
+        resultDiv.appendChild(span);
+        return;
+      }
+    
+      // 랜덤으로 한 개 선택
+      const randomItem = filtered[Math.floor(Math.random() * filtered.length)];
+      
+      // 🔥 결과 묶는 박스 생성
+      const itemBox = document.createElement("div");
+      itemBox.className = "result-card";
+
+      
+      // 제목
+      const title = document.createElement("div");
+      title.className = "result-title";
+      title.textContent = randomItem.name;
+      itemBox.appendChild(title);
+      
+      // 설명
+      if (randomItem.description) {
+        const desc = document.createElement("div");
+        desc.className = "menu-desc";
+        desc.textContent = randomItem.description;
+        itemBox.appendChild(desc);
+      }
+      
+      resultDiv.appendChild(itemBox);
+    }
+</script>
+
+  <div id="footer-info">
+    <p>돈이 있다면 할 게 많아진다.</p>
+    <p>
+      <a href="https://blog.naver.com/hgmkjy" target="_blank">"jjhu's Day"</a>
+    </p>
+  </div>
+
+<div class="container">
+  <button onclick="toggleMenuTable()" style="background-color:#555; color:white; padding:10px 30px; border-radius:15px;">모든 활동 보기</button>
+</div>
+
+<div id="menu-table-container" style="display:none; margin-top:20px; max-height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px; border-radius:10px;">
+  <div id="menu-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; text-align:center; font-size:0.9em;">
+    <!-- JS에서 채워짐 -->
+  </div>
+</div>
+
+<script>
+  function toggleMenuTable() {
+    const container = document.getElementById('menu-table-container');
+    container.style.display = container.style.display === 'none' ? 'block' : 'none';
+    if(container.style.display === 'block') {
+      populateMenuTable();
+    }
+  }
+
+  function populateMenuTable() {
+  const container = document.getElementById('menu-grid');
+  container.innerHTML = ''; // 초기화
+
+  menuData.forEach(item => {
+    const div = document.createElement('div');
+    div.style.padding = '5px';
+    div.style.border = '1px solid #ccc';
+    div.style.borderRadius = '5px';
+    div.style.position = 'relative'; // 설명 위치 잡기
+    div.style.cursor = 'pointer';
+    
+    // 제목
+    const title = document.createElement('div');
+    title.textContent = item.name;
+    div.appendChild(title);
+
+    // 설명 (숨김)
+    if(item.description) {
+      const desc = document.createElement('div');
+      desc.textContent = item.description;
+      desc.style.fontSize = '0.75em';
+      desc.style.color = '#6a4f4a';
+      desc.style.marginTop = '4px';
+      desc.style.display = 'none';
+      desc.style.textAlign = 'left';
+      div.appendChild(desc);
+
+      // 클릭 토글
+      div.addEventListener('click', () => {
+        desc.style.display = desc.style.display === 'none' ? 'block' : 'none';
+      });
+    }
+
+    container.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
