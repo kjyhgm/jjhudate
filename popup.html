@@ -421,19 +421,19 @@ document.getElementById('menu-grid').addEventListener('click', e => {
   const cardRect = card.getBoundingClientRect();
   const cardCenter = cardRect.left + cardRect.width / 2;
   
-  // 기본 중앙
-  popup.style.left = '50%';
+  popup.style.top = cardRect.bottom + 8 + 'px';
+  popup.style.left = cardRect.left + cardRect.width / 2 + 'px';
   popup.style.transform = 'translateX(-50%)';
   
-  // 왼쪽 공간 부족
-  if (cardCenter < popupWidth / 2) {
-    popup.style.left = '0';
+  // 왼쪽 넘침
+  if (cardRect.left < popupWidth / 2) {
+    popup.style.left = cardRect.left + 'px';
     popup.style.transform = 'translateX(0)';
   }
   
-  // 오른쪽 공간 부족
-  else if (window.innerWidth - cardCenter < popupWidth / 2) {
-    popup.style.left = '100%';
+  // 오른쪽 넘침
+  else if (window.innerWidth - cardRect.right < popupWidth / 2) {
+    popup.style.left = cardRect.right + 'px';
     popup.style.transform = 'translateX(-100%)';
   }
 });
@@ -465,7 +465,7 @@ document.getElementById('menu-grid').addEventListener('click', e => {
 }
 
 .popup {
-  position: absolute;
+  position: fixed;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
