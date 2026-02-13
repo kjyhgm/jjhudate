@@ -85,7 +85,7 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
     .result-title { font-size: 1em; font-weight: bold; margin-bottom: 8px; }       /* 결과 제목 */
-    .menu-desc { font-size: 0.65em; color: #6a4f4a; line-height: 1.5; word-break: keep-all; white-space: pre-wrap; }            /* 설명 글씨 */
+    .menu-desc { font-size: 0.65em; color: #54423f; line-height: 1.5; word-break: keep-all; white-space: pre-wrap; }            /* 설명 글씨 */
     
     /*  폰 최적화  */
     @media (max-width: 520px) {
@@ -97,6 +97,13 @@
       .result-title { font-size: 1.1em; }
       .menu-desc { font-size: 0.75em; }
     }
+
+    /* 텍스트 선택 파랑 없애기 */
+    * { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+
+    /* 버튼 클릭 시 파란 테두리 없애기 */
+    button:focus, .primary-btn:focus, .secondary-btn:focus, .tertiary-btn:focus { outline: none; }
+    
   </style>
 </head>
 <body>
@@ -401,8 +408,8 @@ function populateMenuTable() {
     if (item.description) {
       const popup = document.createElement('div');
       popup.textContent = item.description;
-      popup.style.position = 'absolute';
-      popup.style.top = '100%';
+      popup.style.position = 'fixed';   // body 기준으로 고정
+      popup.style.top = (div.getBoundingClientRect().bottom + window.scrollY + 5) + 'px';
       popup.style.left = '50%';
       popup.style.transform = 'translateX(-50%)';
       popup.style.background = '#fdf9f6';
@@ -414,7 +421,7 @@ function populateMenuTable() {
       popup.style.display = 'none';
       popup.style.zIndex = '10';
       popup.style.minWidth = '180px';
-      popup.style.maxWidth = '400px'; // 최대 폭 늘림
+      popup.style.maxWidth = '90%'; // 최대 폭 늘림
       popup.style.width = 'auto';
 
       div.appendChild(popup);
