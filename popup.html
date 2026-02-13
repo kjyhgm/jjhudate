@@ -412,65 +412,55 @@ function populateMenuTable() {
     if (item.description) {
       const popup = document.createElement('div');
       popup.textContent = item.description;
+    
       popup.style.position = 'absolute';
+      popup.style.left = '50%';
+      popup.style.top = '100%';
+      popup.style.transform = 'translateX(-50%)';
+      popup.style.marginTop = '6px';
+    
       popup.style.background = '#fdf9f6';
-      popup.style.padding = '6px 10px';
+      popup.style.padding = '8px 12px';
       popup.style.border = '1px solid #ccc';
       popup.style.borderRadius = '10px';
       popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+    
       popup.style.whiteSpace = 'pre-wrap';
+      popup.style.wordBreak = 'break-word';
+      popup.style.boxSizing = 'border-box';
+    
       popup.style.display = 'none';
-      popup.style.zIndex = '10';
+      popup.style.zIndex = '100';
+    
       popup.style.minWidth = '180px';
-      popup.style.maxWidth = '400px';
-      popup.style.width = 'auto';
-
+      popup.style.maxWidth = '280px';
+      popup.style.width = 'max-content';
+    
       div.appendChild(popup);
-
+    
       div.addEventListener('click', () => {
+    
         // 모든 팝업 닫기
-        const allPopups = document.querySelectorAll('#menu-grid div > div:nth-child(2)');
-        allPopups.forEach(p => { if (p !== popup) p.style.display = 'none'; });
-
-        // 모든 카드 색 원래대로 (제목 포함)
-        const allCards = document.querySelectorAll('#menu-grid div');
-        allCards.forEach(c => {
-          c.style.background = '#fef5f7';
-          const t = c.querySelector('div');
-          if (t) t.style.background = 'transparent';
-        });
-
+        document.querySelectorAll('#menu-grid div > div:nth-child(2)')
+          .forEach(p => { if (p !== popup) p.style.display = 'none'; });
+    
+        // 모든 카드 색 초기화
+        document.querySelectorAll('#menu-grid div')
+          .forEach(c => {
+            c.style.background = '#fef5f7';
+            const t = c.querySelector('div');
+            if (t) t.style.background = 'transparent';
+          });
+    
         if (popup.style.display === 'none') {
           popup.style.display = 'block';
           div.style.background = '#fde2e9';
           title.style.background = '#fde2e9';
-
-          // 화면 끝 안 넘어가게 위치 조정
-          const rect = div.getBoundingClientRect();
-          const popupWidth = popup.offsetWidth;
-          let left = rect.left + rect.width / 2 - popupWidth / 2;
-          left = Math.max(5, Math.min(left, window.innerWidth - popupWidth - 5));
-
-          popup.style.left = left + 'px';
-          popup.style.top = rect.bottom + window.scrollY + 5 + 'px';
-          popup.style.zIndex = '100';
         } else {
           popup.style.display = 'none';
           div.style.background = '#fef5f7';
           title.style.background = 'transparent';
-          popup.style.zIndex = '10';
         }
-      });
-    } else {
-      div.addEventListener('click', () => {
-        const allCards = document.querySelectorAll('#menu-grid div');
-        allCards.forEach(c => {
-          c.style.background = '#fef5f7';
-          const t = c.querySelector('div');
-          if (t) t.style.background = 'transparent';
-        });
-        div.style.background = '#fde2e9';
-        title.style.background = '#fde2e9';
       });
     }
 
